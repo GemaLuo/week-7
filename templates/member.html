@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>登入</title> 
+<style type="text/css">
+body{
+    margin: 0px;
+    width: 100%;
+    font-size: 20px;
+    font-family: Microsoft JhengHei;
+}
+/*歡迎光臨*/
+.title{
+    margin:0px;
+    padding:30px;
+    background-color: lavender;
+}
+.title-text{
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+/*登入系統*/
+.system{
+    text-align: center;
+    font-weight:bold;
+    font-size: 30px;
+    margin-top: 20px;
+}
+.txt{
+    text-align: center;
+    font-size: 25px;
+    margin-top: 10px;
+}
+/*查詢與更新*/
+/*字體*/
+.su-txt{
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+/*下方框框與按鈕*/
+container{
+    justify-content:center;
+}
+.area{
+    display: flex;
+    justify-content: center;
+}
+.box{
+    flex: none;
+    width: 250px;
+    height: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 20px;
+}
+/*按鈕*/
+.su{
+    text-align: center;
+    vertical-algin: center;
+    flex: none;
+}
+.button{
+    border-color: lavender;
+    background-color: lavender;
+    font-size: 20px;
+    color: purple;
+    border-radius: 20px;
+    width: 65px;
+    height: 40px;
+    cursor: pointer;
+    margin-top: 13px;
+    margin-left: 5px;
+}
+.button:hover{
+    border-color: purple;
+    color: purple;
+    font-weight: bolder;
+    background-color: thistle;
+}
+</style>
+</head>
+<body>
+    <div class=title>
+        <div class=title-text>歡迎光臨，這是會員頁</div>
+    </div>
+    <br/>
+    <div class=system id="login">{{signname}}，歡迎登入系統!</div>
+    <div class=txt>
+        <a href="http://127.0.0.1:3000/signout">
+        登出系統
+        </a>
+    </div>
+    <br/>
+
+    <div class="su-txt">查詢會員姓名</div>
+    <div class="container">
+        <div class="area">
+            <input type="text" class="box" name="username" id="username">
+            <div class="su">
+                <button onclick="getData()" class="button">查詢</button>
+            </div>
+        </div>
+        <div class="txt" id="find"></div>
+    </div>
+    
+    <br/>
+        <div class="su-txt">更新我的姓名</div>
+        <div class="container">
+            <div class="area">
+                <input class="box" name="rename" type="text" id="rename">
+                <div class="su">
+                <button onclick="newData()" class="button">更新</button>
+                </div>
+            </div>
+            <div id="newName" class="txt"></div>
+        </div>
+    </form>
+    <br/>
+    <script>
+        function getData(){
+            let usernameElement=document.getElementById("username").value;
+            let url="http://127.0.0.1:3000/api/member?username="+usernameElement;
+            fetch(url).then(res=>res.json())
+            .then(data=>{
+                let result=document.querySelector("#find");
+                let list=data.data
+                try{
+                    result.innerHTML=list.name+"("+list.username+")"
+                }
+                catch{
+                    result.innerHTML="No result."
+                }
+            });
+        }
+
+        function newData(){
+            let url="http://127.0.0.1:3000/api/member"
+            let rename=document.getElementById("rename").value;
+            let news={
+                "name": rename
+            }
+            fetch(url,{
+                method: "PATCH",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(news)
+            }).then(res=>res.json())
+            .then(data=>{
+                let renew=document.getElementById("newName");
+                let login=document.querySelector("#login");
+                if(data.ok==true){
+                    renew.innerHTML="更新成功!"
+                    login.innerHTML=rename+"，歡迎登入系統!"
+                }
+                else{
+                    renew.innerHTML="更新失敗!"
+                }
+
+            }).then(body=>{"ok", true})
+            .catch(error=>{"error",true});
+        }
+    </script>
+</body>
+</html>

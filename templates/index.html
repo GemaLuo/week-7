@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>首頁</title> 
+
+<style type="text/css">
+body{
+    margin: 0px;
+    width: 100%;
+    font-size: 20px;
+}
+
+/*歡迎光臨*/
+.title{
+    margin:0px;
+    padding:30px;
+    background-color: lavender;
+}
+.title-text{
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+/*登入系統*/
+.system{
+    text-align: center;
+    font-weight:bold;
+    font-size: 30px;
+}
+/*註冊、登入帳號密碼區-容器*/
+.container{
+    justify-content:center;
+}
+.area{
+    display: flex;
+    justify-content: center;
+}
+.txt{
+    flex: none;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+.box{
+    flex: none;
+    width: 250px;
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+}
+/*登入按鈕*/
+.login{
+    text-align:center;
+}
+.button{
+    border-color: lavender;
+    background-color: lavender;
+    font-size: 20px;
+    color: purple;
+    border-radius: 20px;
+    width: 80px;
+    height: 40px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+.button:hover{
+    border-color: purple;
+    color: purple;
+    font-weight: bolder;
+    background-color: thistle;
+}
+</style>
+</head>
+<body>
+    <div class=title>
+        <div class=title-text>歡迎光臨，請註冊登入系統</div>
+    </div>
+    <br/>
+    <div class=system>註冊帳號</div>
+    <form action="/signup" method="POST">
+    <div class=container>
+        <div class=area>
+            <div class=txt>姓名</div>
+            <input class=box name="signname">
+        </div>
+        <div class=area>
+            <div class=txt>帳號</div>
+            <input class=box name="username">
+        </div>        
+        <div class=area>
+            <div class=txt>密碼</div>
+            <input type=password class=box name="password">
+        </div>
+    </div>
+    <div class=login> 
+        <button class="button">註冊</button> 
+    </div>
+    </form>
+    <hr/>
+    <br/>
+    <br/>
+    <div class=system>登入系統</div>
+    <form action="/signin" method="POST">
+    <div class=container>
+        <div class=area>
+            <div class=txt>帳號</div>
+            <input class=box name="username">
+        </div>
+        <div class=area>
+            <div class=txt>密碼</div>
+            <input class=box type="password" name="password">
+        </div>
+    </div>
+    <div class=login> 
+        <button class="button">登入</button> 
+    </div>
+    </form>
+</body> 
+</html>
